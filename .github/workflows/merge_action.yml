@@ -11,15 +11,15 @@ jobs:
             matrix:
                 node-version: [12.x]
     steps:
+      - uses: actions/setup-node@v2-beta
       - uses: actions/checkout@v2
-      - name: build
-        uses: actions/setup-node@v2-beta
         with:
           node-version: ${{ matrix.node-version }}
-          run: |
-              chmod +x ./scripts/build.sh
-              yarn
-              yarn build
+      - name: build
+        run: |
+            chmod +x ./scripts/build.sh
+            yarn
+            yarn build
       - name: Deploy to branch
         uses: s0/git-publish-subdir-action@develop
         env:
