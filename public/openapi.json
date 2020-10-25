@@ -25,7 +25,7 @@
         }
     ],
     "paths": {
-        "/user/:firstName": {
+        "/user/{firstName}": {
             "get": {
                 "tags": ["User"],
                 "summary": "Returns a list of users by the given name",
@@ -108,7 +108,7 @@
                     "firstName": {
                         "type": "string"
                     },
-                    "lastName": {
+                    "nickName": {
                         "type": "string"
                     },
                     "age": {

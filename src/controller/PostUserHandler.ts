@@ -7,7 +7,7 @@ export async function createNewUser(req: Request, res: Response, database: Conne
         const userRepo = database.getRepository(User);
         const newUser = new User();
         newUser.firstName = req.body.firstName;
-        newUser.lastName = req.body.lastName;
+        newUser.nickName = req.body.nickName;
         newUser.age = req.body.age;
 
         await userRepo.save(newUser);
