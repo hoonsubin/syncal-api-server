@@ -9,12 +9,8 @@ export default class User {
     firstName: string;
 
     @Column({ length: 128 })
-    nickName: string;
+    lastName: string;
 
     @Column()
     age: number;
-
-    get userId(): string {
-        return this.nickName + this.id;
-    }
 }

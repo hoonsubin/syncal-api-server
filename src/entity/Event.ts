@@ -5,16 +5,15 @@ export default class Event {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ type: 'datetime' })
-    startDate: string;
-
     @Column({ length: 128 })
-    nickName: string;
+    name: string;
 
     @Column()
-    age: number;
+    startDate: string; // unix timestamp in seconds
 
-    get userId(): string {
-        return this.nickName + this.id;
-    }
+    @Column()
+    duration: string; // unix timestamp in seconds (range)
+
+    @Column()
+    comments: string;
 }
