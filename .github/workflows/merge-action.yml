@@ -1,0 +1,19 @@
+name: Deploy to Glitch
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  # Deploy the source code to Glitch.com
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Deploy it to Glitch.com
+      - name: Deploy to Glitch
+        uses: glitch-tools/sync-glitch-github-action@master
+        env:
+          GLITCH_PROJECT_ID: ${{ secrets.GLITCH_PROJECT_ID }}
+          GLITCH_TOKEN: ${{ secrets.GLITCH_TOKEN }}
+
