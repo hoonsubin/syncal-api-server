@@ -30,8 +30,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Setup 
-      - uses: actions/checkout@v2
+      - name: Checkout target branch 
+        uses: actions/checkout@v2
         with:
           ref: glitch-publish # checkout the publish branch
       # Deploy it to Glitch.com
