@@ -1,2 +1,1 @@
-export * as GetUserHandler from './GetUserHandler';
-export * as PostUserHandler from './PostUserHandler';
+export * as UserController from './UserController';

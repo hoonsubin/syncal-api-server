@@ -15,25 +15,25 @@ interface AppRoute {
     path: string;
     method: HttpMethod;
     controller: (req: Request, res: Response, database: Connection) => Promise<void>;
-    body?: object;
-    params?: object;
+    reqBody?: Record<string, unknown>;
+    reqParams?: Record<string, unknown>;
 }
 
 const AppRoutes: AppRoute[] = [
     {
         path: API_ROOT + 'user/:firstName',
         method: 'GET',
-        controller: controllers.GetUserHandler.getUsersByName,
+        controller: controllers.UserController.getUsersByName,
     },
     {
         path: API_ROOT + 'hello-world/:name',
         method: 'GET',
-        controller: controllers.GetUserHandler.getHelloMessage,
+        controller: controllers.UserController.getHelloMessage,
     },
     {
         path: API_ROOT + 'user/new-user',
         method: 'POST',
-        controller: controllers.PostUserHandler.createNewUser,
+        controller: controllers.UserController.createNewUser,
     },
 ];
 

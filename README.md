@@ -19,6 +19,9 @@ yarn
 # start server
 yarn start
 
-# run the sandbox script. This is generally for testing or running machine-specific chron jobs
+# build production application
+yarn build
+
+# run the sandbox script. This is generally for testing or running machine-specific cron jobs
 yarn sandbox
 ```
