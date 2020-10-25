@@ -50,6 +50,7 @@ jobs:
                   node-version: ${{ matrix.node-version }}
             - name: build
               run: |
+                  chmod +x ./script/build.sh
                   yarn
                   yarn build
               working-directory: ./
