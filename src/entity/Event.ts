@@ -1,12 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export default class User {
+export default class Event {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 128 })
-    firstName: string;
+    @Column({ type: 'datetime' })
+    startDate: string;
 
     @Column({ length: 128 })
     nickName: string;
