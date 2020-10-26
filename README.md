@@ -12,7 +12,6 @@ NODE_ENV=development
 PORT=3000
 GLITCH_PROJECT_ID=<glitch project ID>
 GLITCH_TOKEN=<glitch API token>
-PRODUCTION_PATH=hoonsubin/syncal-api-server:dist
 ```
 
 ```bash

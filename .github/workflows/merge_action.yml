@@ -5,7 +5,7 @@ on:
       - 'main'
 jobs:
   # build the source code
-  deploy:
+  build:
     runs-on: ubuntu-latest
     strategy:
             matrix:
@@ -20,23 +20,18 @@ jobs:
             chmod +x ./scripts/build.sh
             yarn
             yarn build
-      - name: Deploy to branch
+      - name: Upload as artifact
         uses: actions/upload-artifact@v2
         with:
           name: build
           path: dist
-
-  # deploy:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout target branch 
-  #       uses: actions/checkout@v2
-  #       with:
-  #         ref: glitch-publish # checkout the publish branch
-  #     # Deploy it to Glitch.com
-  #     - name: Deploy to Glitch
-  #       uses: glitch-tools/sync-glitch-github-action@master
-  #       env:
-  #         GLITCH_PROJECT_ID: ${{ secrets.GLITCH_PROJECT_ID }}
-  #         GLITCH_TOKEN: ${{ secrets.GLITCH_TOKEN }}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      # Deploy this repo to Glitch.com
+      - name: Deploy to Glitch
+        uses: glitch-tools/sync-glitch-github-action@master
+        env:
+          GLITCH_PROJECT_ID: ${{ secrets.GLITCH_PROJECT_ID }}
+          GLITCH_TOKEN: ${{ secrets.GLITCH_TOKEN }}
