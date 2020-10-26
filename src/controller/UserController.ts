@@ -14,6 +14,7 @@ export async function getHelloMessage(req: Request, res: Response, database: Con
 }
 
 export async function getUsersByName(req: Request, res: Response, database: Connection) {
+    res.type('application/json');
     const { firstName } = req.params;
     const userRepo = database.getRepository(User);
     const users = await userRepo.find({ firstName: firstName });
@@ -21,12 +22,17 @@ export async function getUsersByName(req: Request, res: Response, database: Conn
     if (users.length > 0) {
         res.send(JSON.stringify(users));
     } else {
-        res.status(404).send(`User named ${firstName} not found!`);
+        res.status(404).send({ status: 200, message: `User named ${firstName} not found!` });
     }
 }
 
 export async function createNewUser(req: Request, res: Response, database: Connection) {
-    if (req.body) {
+    res.type('application/json');
+
+    try {
+        if (!req.body) {
+            throw new Error('No parameter given in the body');
+        }
         const userRepo = database.getRepository(User);
         const newUser = new User();
         newUser.firstName = req.body.firstName;
@@ -34,9 +40,9 @@ export async function createNewUser(req: Request, res: Response, database: Conne
         newUser.age = req.body.age;
 
         await userRepo.save(newUser);
-        res.type('application/json');
-        res.send(JSON.stringify({ status: 200, message: 'successfully saved new user ' + newUser.firstName }));
-    } else {
-        res.send('No content body provided');
+
+        res.send({ status: 200, message: 'successfully saved new user ' + newUser.firstName });
+    } catch (e) {
+        res.status(400).send({ status: 400, message: e.message });
     }
 }
