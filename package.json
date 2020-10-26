@@ -17,6 +17,7 @@
     "main": "src/index.ts",
     "scripts": {
         "start": "ts-node-dev -r dotenv/config src/index.ts",
+        "test": "jest",
         "build": "rimraf ./dist && ncc build src/index.ts -o dist -m -s && chmod +x scripts/build.sh && ./scripts/build.sh",
         "build:tsc": "rimraf ./dist && tsc --project tsconfig.json && chmod +x scripts/build.sh && ./scripts/build.sh",
         "lint": "eslint '*/**/*.{js,ts}' --quiet --fix",
