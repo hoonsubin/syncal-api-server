@@ -5,7 +5,7 @@ on:
       - 'main'
 jobs:
   # build the source code
-  build:
+  deploy:
     runs-on: ubuntu-latest
     strategy:
             matrix:
@@ -15,30 +15,28 @@ jobs:
       - uses: actions/checkout@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: build
+      - name: Build serer
         run: |
             chmod +x ./scripts/build.sh
             yarn
             yarn build
       - name: Deploy to branch
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: self
-          BRANCH: glitch-publish
-          FOLDER: dist
-          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout target branch 
-        uses: actions/checkout@v2
+        uses: actions/upload-artifact@v2
         with:
-          ref: glitch-publish # checkout the publish branch
-      # Deploy it to Glitch.com
-      - name: Deploy to Glitch
-        uses: glitch-tools/sync-glitch-github-action@master
-        env:
-          GLITCH_PROJECT_ID: ${{ secrets.GLITCH_PROJECT_ID }}
-          GLITCH_TOKEN: ${{ secrets.GLITCH_TOKEN }}
+          name: build
+          path: dist
+
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout target branch 
+  #       uses: actions/checkout@v2
+  #       with:
+  #         ref: glitch-publish # checkout the publish branch
+  #     # Deploy it to Glitch.com
+  #     - name: Deploy to Glitch
+  #       uses: glitch-tools/sync-glitch-github-action@master
+  #       env:
+  #         GLITCH_PROJECT_ID: ${{ secrets.GLITCH_PROJECT_ID }}
+  #         GLITCH_TOKEN: ${{ secrets.GLITCH_TOKEN }}
