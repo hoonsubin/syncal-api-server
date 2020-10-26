@@ -17,10 +17,10 @@ jobs:
             - name: lint
               run: |
                   yarn
-                  yarn lint
+                  yarn lint:check
               working-directory: ./
     run_tests:
-        name: Unit Tests
+        name: Unit tests
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -37,7 +37,7 @@ jobs:
                   yarn test
               working-directory: ./
     build_code:
-        name: Build Code
+        name: Build check
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -49,7 +49,7 @@ jobs:
                   node-version: ${{ matrix.node-version }}
             - name: Build with Node.js ${{ matrix.node-version }}
               run: |
-                  yarn
                   chmod +x ./scripts/build.sh
+                  yarn
                   yarn build
               working-directory: ./
